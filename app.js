@@ -9,6 +9,15 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+//database
+var mongoose = require('mongoose');
+var config = require('./config');
+var mongodb = config.dburl;
+mongoose.connect(mongodb , {useNewUrlParser : true});
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDb connection error'));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
